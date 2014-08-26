@@ -7,7 +7,13 @@
 //
 
 #include <iostream>
+#define BEGIN_LEN = 3;
+#define EASY_LEN = 5;
+#define MEDIUM_LEN = 6;
+#define HARD_LEN = 8;
 
+
+enum difficulty(beginner, easy, medium, hard);
 int main(int argc, const char * argv[])
 {
 
@@ -15,13 +21,17 @@ int main(int argc, const char * argv[])
      Requirement #15: Demonstrate command line args
      ----------------------------------------------------------------------*/
     if (argv[0] == "--cheat"){
-		
+		//highlight correct answer
+		cheatsActive = true; // Has to be global scope so it can be used regardless of which Game object gets called
 	}
 	
     /*----------------------------------------------------------------------
     Requirement #01A: Demonstrate simple output
      ----------------------------------------------------------------------*/
-    
+    //Make sure all necessary files exist and can be opened
+	checkFiles();
+	//Begin game logic
+	start();
     /*----------------------------------------------------------------------
      Requirement #01B: Demonstrate simple input
      ----------------------------------------------------------------------*/
@@ -45,7 +55,10 @@ int main(int argc, const char * argv[])
     /*----------------------------------------------------------------------
      Requirement #05: Demonstrate a random number
      ----------------------------------------------------------------------*/
-    // Set gibberish characters
+    // Initialize random seed
+	srand(time(NULL));
+
+	// Set gibberish characters
 	
 	// Set position for words
     /*----------------------------------------------------------------------
@@ -67,17 +80,13 @@ int main(int argc, const char * argv[])
 	if (!cin){
 		
 	}
-    /*----------------------------------------------------------------------
-     Requirement #08A: Demonstrate a user-defined function
-     ----------------------------------------------------------------------*/
+
     
     /*----------------------------------------------------------------------
      Requirement #08B: Demonstrate an overloaded function
      ----------------------------------------------------------------------*/
 
-    /*----------------------------------------------------------------------
-     Requirement #09: Demonstrate functional decomposition
-     ----------------------------------------------------------------------*/
+    
     
     /*----------------------------------------------------------------------
      Requirement #10: Demonstrate scope of variables
@@ -195,7 +204,15 @@ int main(int argc, const char * argv[])
 	}
 	//Otherwise, throw an exception
 	else {
-		
+	/*----------------------------------------------------------------------
+     Requirement #25: Demonstrate exceptions
+     ----------------------------------------------------------------------*/
+	 throw "Unable to open file. Please make sure it exists and is not corrupt.";
+	 
+	catch(string e){
+		cout << e << endl << "Filename: " << dictionary << endl;
+	}
+	 
 	}
 	//Read entire file to allocate space for array
 		while (getline (dictionary,line)){
@@ -218,9 +235,7 @@ int main(int argc, const char * argv[])
      Requirement #24B: Demonstrate polymorphism
      ----------------------------------------------------------------------*/
     
-    /*----------------------------------------------------------------------
-     Requirement #25: Demonstrate exceptions
-     ----------------------------------------------------------------------*/
+    
     
     /*----------------------------------------------------------------------
      Requirement #26: Demonstrate something awesome
@@ -231,4 +246,22 @@ int main(int argc, const char * argv[])
 
     return 0;
 }
+    /*----------------------------------------------------------------------
+     Requirement #08A: Demonstrate a user-defined function
+     ----------------------------------------------------------------------*/
+void start(){
+	bool play;
+	
+	do {
+	/*----------------------------------------------------------------------
+     Requirement #09: Demonstrate functional decomposition
+     ----------------------------------------------------------------------*/
+	mainMenu();
+	difficulty getDifficulty();
+	getWords();
+	play = playLoop();
+	
+	} while (play == true);
+	
+}	
 
