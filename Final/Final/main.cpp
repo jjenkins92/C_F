@@ -5,13 +5,27 @@
 //  Created by Christopher Olsen on 8/25/14.
 //  Copyright (c) 2014 Christopher Olsen. All rights reserved.
 //
+    /*----------------------------------------------------------------------
+     Requirement #19: Demonstrate header file
+     ----------------------------------------------------------------------*/
+#include "gameObjects.h"
+#include "menu.h"
+#include <string>
+#include <fstream>
+#include <sstream>
+#include <cstdlib>
 
 #include <iostream>
 #define BEGIN_LEN = 3;
 #define EASY_LEN = 5;
 #define MEDIUM_LEN = 6;
 #define HARD_LEN = 8;
-
+using std::cin;
+using std::cout;
+using std::ifstream;
+using std::ofstream;
+using std::endl;
+using std::string;
 
 enum difficulty(beginner, easy, medium, hard);
 int main(int argc, const char * argv[])
@@ -39,18 +53,19 @@ int main(int argc, const char * argv[])
     /*----------------------------------------------------------------------
      Requirement #02: Demonstrate explicit type casting
      ----------------------------------------------------------------------*/
-
+	int someInt = static_cast<int>(someFloat);
     /*----------------------------------------------------------------------
      Requirement #03A: Demonstrate logical operators
      ----------------------------------------------------------------------*/
 
+	
     /*----------------------------------------------------------------------
      Requirement #03B: Demonstrate bitwise operators
      ----------------------------------------------------------------------*/
-	
-    /*----------------------------------------------------------------------
-     Requirement #04: Demonstrate a loop
-     ----------------------------------------------------------------------*/
+	//log any errors
+	ofstream log;
+	log.open("log.txt", ofstream::trunc | ofstream::app);	
+    
  
     /*----------------------------------------------------------------------
      Requirement #05: Demonstrate a random number
@@ -76,11 +91,13 @@ int main(int argc, const char * argv[])
     /*----------------------------------------------------------------------
      Requirement #07: Demonstrate a debugging trick
      ----------------------------------------------------------------------*/
-    // Validate input for proper data type
+bool Menu::isValid(){
+	// Validate input for proper data type
 	if (!cin){
+		return false;
 		
 	}
-
+}
     
     /*----------------------------------------------------------------------
      Requirement #08B: Demonstrate an overloaded function
@@ -115,14 +132,12 @@ int main(int argc, const char * argv[])
     
     
     
-    /*----------------------------------------------------------------------
-     Requirement #13: Demonstrate recursion
-     ----------------------------------------------------------------------*/
+
 	
     /*----------------------------------------------------------------------
      Requirement #14A: Demonstrate a multi-dimensional array
      ----------------------------------------------------------------------*/
-    
+	// The game board should be an array of a certain size
 
     
     
@@ -136,10 +151,21 @@ int main(int argc, const char * argv[])
 		
 	};
 	
+	class Menu {
+		bool isValid();
+		int GetSelection();
+	};
+	
+	int Menu::GetSelection(){
+		
+	}
     /*----------------------------------------------------------------------
      Requirement #16B: Demonstrate struct
      ----------------------------------------------------------------------*/
-    
+    struct iWord{
+		
+		iWord next;
+	}
     /*----------------------------------------------------------------------
      Requirement #16C: Demonstrate object
      ----------------------------------------------------------------------*/
@@ -160,11 +186,15 @@ int main(int argc, const char * argv[])
     /*----------------------------------------------------------------------
      Requirement #18: Demonstrate namespace
      ----------------------------------------------------------------------*/
-    
-    /*----------------------------------------------------------------------
-     Requirement #19: Demonstrate header file
-     ----------------------------------------------------------------------*/
-    
+    namespace GameObjects{
+		char[][] dispBoard(char inBoard*&[][]);
+		
+	}
+	
+	namespace MenuObjects{
+		
+	}
+
     /*----------------------------------------------------------------------
      Requirement #20: Demonstrate a makefile
      ----------------------------------------------------------------------*/
@@ -223,14 +253,37 @@ int main(int argc, const char * argv[])
      Requirement #14B: Demonstrate a dynamically allocated array
      ----------------------------------------------------------------------*/
 	new string gameDictionary[arraySize];
+	//Return to the beginning of the file
+	dictionary.seekg(0, dictionary.beg);
+	
+	/*----------------------------------------------------------------------
+     Requirement #04: Demonstrate a loop
+     ----------------------------------------------------------------------*/
+	for (i=0; i<arraySize; ++i){
+		gameDictionary[i] = string(getline (dictionary, line));
+	}
 	
 	//Delete this array when we no longer need it
     /*----------------------------------------------------------------------
      Requirement #24A: Demonstrate inheritance
      ----------------------------------------------------------------------*/
-    class EasyGame : public Game {
+    class BeginnerGame : public Game {
 		
-	}
+		
+	};
+
+	class EasyGame : public Game {
+		
+	};
+	
+	class MediumGame : public Game {
+		
+		
+	};
+	
+	class HardGame : public Game {
+		
+	};
     /*----------------------------------------------------------------------
      Requirement #24B: Demonstrate polymorphism
      ----------------------------------------------------------------------*/
@@ -265,3 +318,25 @@ void start(){
 	
 }	
 
+void mainMenu(){
+	MenuObjects::Menu gameMenu;
+	gameMenu.GetSelection();
+	if (gameMenu.isValid()){
+		//Continue
+	} else{
+    /*----------------------------------------------------------------------
+     Requirement #13: Demonstrate recursion
+     ----------------------------------------------------------------------*/
+		//Recursively call until input is valid
+		cin.clear();
+		cin.flush();
+		cin.ignore();
+		gameMenu.GetSelection();
+	}
+	
+	
+}
+
+bool playLoop(){
+	
+}
